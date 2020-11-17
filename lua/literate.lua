@@ -183,6 +183,7 @@ end
 api.nvim_buf_set_keymap(0, 'n', '<Leader>ec', ':lua require"literate".Comment()<CR>', { noremap = true, silent = true })
 api.nvim_buf_set_keymap(0, 'n', '<Leader>ee', ':lua require"literate".Tangle()<CR>',  { noremap = true, silent = true })
 api.nvim_buf_set_keymap(0, 'n', '<Leader>es', ':lua require"literate".Edit()<CR>',    { noremap = true, silent = true })
+api.nvim_command('iabbrev <buffer> <silent> <s ```<CR><CR>```<Up><Up><End>')
 -- }}}
 
 return {
