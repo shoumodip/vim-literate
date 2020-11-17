@@ -15,11 +15,12 @@ You can also use any package manager of your choice.
 
 # Features
 ## Tangle
-Take the source code present in all the code blocks in the markdown files and write it to a destination file.\
+Take the source code present in all the code blocks in the markdown files and write it to a destination file.
 ```
 <!-- tangle: OUTPUTFILE -->
 ```
-Place this declaration on the **first line** of the markdown file where `OUTPUTFILE` is the file where the code blocks will be tangles to.\
+Place this declaration on the **first line** of the markdown file where `OUTPUTFILE` is the file where the code blocks will be tangled to.
+
 `<Leader>ee` Tangle the code blocks.
 
 ***IMPORTANT***: The beginning of each code block **must** have a filetype declared in typical markdown syntax **without** any parenthesis. as shown in the image below otherwise they won't be tangled.
