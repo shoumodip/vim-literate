@@ -9,7 +9,6 @@ local tangle_comment = '<!-- no-tangle -->' -- The string recognised as a code b
 local api = vim.api -- Prevent RSI
 local startline -- The starting line of a code block
 local endline -- The ending line of a code block
-local register = api.nvim_get_var('literate_register') -- The register used in the code block edit functions
 -- }}}
 -- Get the limits of a code block -{{{
 local function CodeBlockRange()
@@ -152,8 +151,9 @@ local function EditWindow()
 
       api.nvim_command('normal! k0')
       CodeBlockRange() -- Get the range
-      api.nvim_command('silent! normal! ' .. startline .. 'GV' .. endline .. 'G"' .. register .. 'y') -- Copy the code block
-      api.nvim_command('tabnew Edit-Window | setlocal buftype=nofile | silent! normal! "' .. register .. 'PG"_ddgg') -- Paste it in a new tab
+
+      local code = api.nvim_eval('join(getline(' .. startline .. ',' .. endline .. '), "\\n")') -- Copy the code block
+      api.nvim_command('tabnew Edit-Window | setlocal buftype=nofile | normal! i' .. code) -- Paste it in a new tab
 
       api.nvim_command('setlocal filetype=' .. filetype .. ' | filetype detect') -- Set the filetype
 
@@ -167,7 +167,7 @@ end
 -- Close the Edit window -{{{
 local function EditWindowClose()
   if api.nvim_call_function('expand', {'%'}) == 'Edit-Window' then
-    api.nvim_command('silent! normal! gg"' .. register .. 'yG') -- Copy the code in the edit window into the 'Edit' register
+    local code = api.nvim_eval('join(getline(1, "$"), "\\n")') -- The code block
     api.nvim_command('silent! bdelete!') -- Kill the buffer
     api.nvim_call_function('search', {'^```\\S', 'bW'}) -- Beginning of the code block
 
@@ -175,7 +175,7 @@ local function EditWindowClose()
 
     -- Replace the existing code with the new code
     api.nvim_command('silent! normal! ' .. startline .. 'GV' .. endline .. 'G"_dk')
-    api.nvim_command('silent! normal! ' .. startline .. 'Gk"' .. register .. 'p')
+    api.nvim_command('silent! normal! o' .. code)
   end
 end
 -- }}}

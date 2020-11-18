@@ -52,12 +52,5 @@ at its top and it will not get tangled to the output file.
 ## Important Mentions
 Every code block you wish to tangle, filetype-edit and comment on *must* have at least one line in them, even an empty line will work. This is done to ensure that the bottom of the code block does not get overwritten. Better yet use the default abbreviation `<s` to create a code block.
 
-## Code Clipboard
-By default, the `w` register will be used for syncing the code blocks with the main file, however you can change it. **Before** sourcing the plugin, place this in your `init.vim` or whatever.
-```vim
-let g:literate_register = 'a'
-```
-And this will set the register used to `a`.
-
 # License
 MIT
