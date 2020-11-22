@@ -153,7 +153,12 @@ local function EditWindow()
       CodeBlockRange() -- Get the range
 
       local code = api.nvim_eval('join(getline(' .. startline .. ',' .. endline .. '), "\\n")') -- Copy the code block
-      api.nvim_command('tabnew Edit-Window | setlocal buftype=nofile | normal! i' .. code) -- Paste it in a new tab
+      api.nvim_command('tabnew Edit-Window | setlocal buftype=nofile') -- New tab
+
+      local autoindent_save = api.nvim_buf_get_option(0, 'autoindent') -- The autoindent setting
+      api.nvim_buf_set_option(0, 'autoindent', false) -- Don't autoindent
+      api.nvim_command('normal! i' .. code) -- Paste it in
+      api.nvim_buf_set_option(0, 'autoindent', autoindent_save) -- Reset autoindent
 
       api.nvim_command('setlocal filetype=' .. filetype .. ' | filetype detect') -- Set the filetype
 
