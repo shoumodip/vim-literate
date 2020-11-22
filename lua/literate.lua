@@ -175,7 +175,10 @@ local function EditWindowClose()
 
     -- Replace the existing code with the new code
     api.nvim_command('silent! normal! ' .. startline .. 'GV' .. endline .. 'G"_dk')
+    local autoindent_save = api.nvim_buf_get_option(0, 'autoindent') -- The autoindent setting
+    api.nvim_buf_set_option(0, 'autoindent', false) -- Don't autoindent
     api.nvim_command('silent! normal! o' .. code)
+    api.nvim_buf_set_option(0, 'autoindent', autoindent_save) -- Reset autoindent
   end
 end
 -- }}}
