@@ -32,7 +32,11 @@ local function ExportCode()
   local firstline = api.nvim_get_current_line() -- The first line of the file
 
   if string.match(firstline, '<.-- tangle: .* -->') then -- Only tangle if asked
-    local outputfile = string.gsub(string.gsub(string.gsub(firstline, '.* tangle: ', ''), ' +-->', ''), '"', '\"') -- The output file name
+
+    -- The output file name
+    local parentdir = string.gsub(api.nvim_eval('expand("%:p:h")'), '^/$', '') .. '/'
+    local targetfile = string.gsub(string.gsub(string.gsub(firstline, '.* tangle: ', ''), ' +-->', ''), '"', '\"')
+    local outputfile = parentdir .. targetfile
 
     if api.nvim_call_function('glob', {outputfile}) == '' then
       os.execute('touch ' .. outputfile) -- Create the output file if nonexistant
@@ -73,7 +77,7 @@ local function ExportCode()
       if codeblocks > 0 then
         api.nvim_command('unsilent echon "Tangled ' .. codeblocks .. ' code ' .. (codeblocks > 1 and 'blocks' or 'block') .. ' to `"')
         api.nvim_command('echohl Identifier')
-        api.nvim_command('unsilent echon "' .. outputfile .. '"')
+        api.nvim_command('unsilent echon "' .. targetfile .. '"')
         api.nvim_command('echohl Normal')
         api.nvim_command('unsilent echon "`"')
       end
