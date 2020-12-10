@@ -45,7 +45,7 @@ A commented code block is marked with
 ```
 at its top and it will not get tangled to the output file.
 
-***IMPORTANT***: The beginning of the code block **must** have a filetype declared in typical markdown syntax **without** any parenthesis. as shown in the image below otherwise commenting won't work. Also the file must be marked for tangling (see the section `Tangle` above).
+***IMPORTANT***: The beginning of the code block **must** have a filetype declared in typical markdown syntax **without** any parenthesis. as shown in the image below otherwise commenting won't work. Also the file must be marked for tangling (see the section [Tangle](https://github.com/shoumodip/nvim-literate/edit/main/README.md/#Tangle) above).
 
 ![Comment Blocks](img/comment_code.gif)
 
