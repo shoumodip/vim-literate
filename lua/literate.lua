@@ -55,12 +55,17 @@ local function ExportCode()
         if endline + 1 > startline then -- Prevent infinite looping
           if api.nvim_call_function('getline', {startline - 2}) ~= tangle_comment then -- Don't tangle if marked as a 'comment'
             codeblocks = codeblocks + 1
-            api.nvim_command("silent! " .. startline .. "," .. endline .. "write! >> " .. outputfile) -- Tangle the code block
             os.execute('echo "" >> ' .. outputfile)
+            api.nvim_command("silent! " .. startline .. "," .. endline .. "write! >> " .. outputfile) -- Tangle the code block
           end
         end
 
         CodeBlockRange()
+      end
+
+      -- Remove the black line created at the start of the output file
+      if codeblocks > 0 then
+        api.nvim_command('silent! !sed -i "1d" ' .. outputfile)
       end
 
       -- If there is one more code block, tangle it
