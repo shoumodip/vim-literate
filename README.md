@@ -30,3 +30,19 @@ call literate#toggle()
 ```
 
 This can also be done manually by prepending the code block with `<!-- vim-literate -->`
+
+## Configuration
+| Variable                   | Description               | Default                      |
+| -------------------------- | ------------------------- | ---------------------------- |
+| `g:literate#file_path`     | Export file path          | `<!-- vim-literate \f\+ -->` |
+| `g:literate#block_end`     | Code block end            | `^```$`                      |
+| `g:literate#block_start`   | Code block start          | `^```\w\+`                   |
+| `g:literate#block_comment` | Code block comment marker | `<!-- vim-literate -->`      |
+
+## Buffer Local Configuration
+| Variable                   | Buffer Local               |
+| -------------------------- | -------------------------- | 
+| `g:literate#file_path`     | `b:literate_file_path`     |
+| `g:literate#block_end`     | `b:literate_block_end`     |
+| `g:literate#block_start`   | `b:literate_block_start`   |
+| `g:literate#block_comment` | `b:literate_block_comment` |
